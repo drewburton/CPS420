@@ -1,1 +1,1 @@
-CPS 420 Code
+CPS 420 code for in-class examples and assignments
