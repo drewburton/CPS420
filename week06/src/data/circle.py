@@ -27,6 +27,7 @@ def create(circle: Circle) -> Circle:
  qry = "insert into circle values(:radius)"
  params = model_to_dict(circle)
  curs.execute(qry, params)
+ conn.commit()
  return get_one(circle.radius)
 
 def modify(circle: Circle, new_circle: Circle) -> Circle:
@@ -36,10 +37,12 @@ def modify(circle: Circle, new_circle: Circle) -> Circle:
  params = model_to_dict(new_circle)
  params["radius_org"] = circle.radius
  _ = curs.execute(qry, params)
+ conn.commit()
  return get_one(circle.radius)
 
 def delete(circle: Circle) -> bool:
  qry = "delete from circle where radius = :radius"
  params = {"radius": circle.radius}
  res = curs.execute(qry, params)
+ conn.commit()
  return bool(res) 
