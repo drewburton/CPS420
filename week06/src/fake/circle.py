@@ -9,7 +9,7 @@ _circles = [
 ]
 
 def get_all() -> list[Circle]:
-    """Return all explorers"""
+    """Return all circles"""
     return _circles
 
 def get_one(radius: float) -> Circle | None:

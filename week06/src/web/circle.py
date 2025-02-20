@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 from model.circle import Circle
-import fake.circle as service
+#import fake.circle as service
+import service.circle as service
 
 router = APIRouter(prefix = "/circle")
 
