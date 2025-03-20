@@ -1,5 +1,6 @@
 import base64
 import io
+import ssl
 from typing import List
 from fastapi.responses import HTMLResponse, JSONResponse
 from pydantic import BaseModel
@@ -12,6 +13,7 @@ import json
 import matplotlib.pyplot as plt
 
 app = FastAPI()
+ssl._create_default_https_context = ssl._create_unverified_context
 
 class PredictionResult(BaseModel): 
     filename: str 
