@@ -2,7 +2,7 @@ import base64
 import io
 import ssl
 from typing import List
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
 from pydantic import BaseModel
 import uvicorn
 from fastapi import FastAPI, File, UploadFile
@@ -40,7 +40,11 @@ def generate_plot(data: PredictionResult):
     plt.close(fig) #Important to close the figure.
     return img_base64
 
-@app.post("/predict")
+@app.get("/", response_class=FileResponse)
+async def index_response():
+    return FileResponse('index.html')
+
+@app.post("/predict", response_class=HTMLResponse)
 async def predict_image(file: UploadFile = File(...)):
     try:
         print("in endpoint")
@@ -72,7 +76,7 @@ async def predict_image(file: UploadFile = File(...)):
         </html>
         """
         print("returning")
-        return HTMLResponse(content=html_content, status_code=200)
+        return html_content
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)
 
